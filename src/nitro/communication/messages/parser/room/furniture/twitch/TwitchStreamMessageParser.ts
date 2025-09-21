@@ -2,78 +2,49 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
 
 export class TwitchStreamMessageParser implements IMessageParser
 {
-    private _itemId: number;
-    private _channel: string;
-    private _startTime: number;
-    private _duration: number;
-    private _isLive: number;
-    private _gameName: string;
-    private _title: string;
-    private _displayName: string;
+    private _furniId: number;
+    private _videoId: string;
+    private _startAtSeconds: number;
+    private _endAtSeconds: number;
+    private _state: number;
 
     flush(): boolean
     {
-        this._itemId = -1;
-        this._channel = null;
-        this._startTime = 0;
-        this._duration = 0;
-        this._isLive = 0;
-        this._gameName = null;
-        this._title = null;
-        this._displayName = null;
         return true;
     }
 
     parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._itemId = wrapper.readInt();
-        this._channel = wrapper.readString();
-        this._startTime = wrapper.readInt();
-        this._duration = wrapper.readInt();
-        this._isLive = wrapper.readInt();
-        this._gameName = wrapper.readString();
-        this._title = wrapper.readString();
-        this._displayName = wrapper.readString();
+        this._furniId = wrapper.readInt();
+        this._videoId = wrapper.readString();
+        this._startAtSeconds = wrapper.readInt();
+        this._endAtSeconds = wrapper.readInt();
+        this._state = wrapper.readInt();
         return true;
     }
 
-    public get itemId(): number
+    public get furniId(): number
     {
-        return this._itemId;
+        return this._furniId;
     }
 
-    public get channel(): string
+    public get videoId(): string
     {
-        return this._channel;
+        return this._videoId;
     }
 
-    public get startTime(): number
+    public get state(): number
     {
-        return this._startTime;
+        return this._state;
     }
 
-    public get duration(): number
+    public get startAtSeconds(): number
     {
-        return this._duration;
+        return this._startAtSeconds;
     }
 
-    public get isLive(): number
+    public get endAtSeconds(): number
     {
-        return this._isLive;
-    }
-
-    public get gameName(): string
-    {
-        return this._gameName;
-    }
-
-    public get title(): string
-    {
-        return this._title;
-    }
-
-    public get displayName(): string
-    {
-        return this._displayName;
+        return this._endAtSeconds;
     }
 }
