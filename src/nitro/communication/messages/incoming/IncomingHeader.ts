@@ -396,6 +396,8 @@ export class IncomingHeader
     public static YOUTUBE_CONTROL_VIDEO = 1554;
     public static YOUTUBE_DISPLAY_PLAYLISTS = 1112;
     public static YOUTUBE_DISPLAY_VIDEO = 1411;
+    public static TWITCH_DISPLAY = 1413;
+    public static TWITCH_STREAM = 1414;
     public static CFH_DISABLED_NOTIFY = 1651;
     public static QUESTION = 2665;
     public static POLL_CONTENTS = 2997;
