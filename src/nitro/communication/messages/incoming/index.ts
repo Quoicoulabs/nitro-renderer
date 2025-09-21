@@ -53,6 +53,7 @@ export * from './room/data';
 export * from './room/engine';
 export * from './room/furniture';
 export * from './room/furniture/floor';
+export * from './room/furniture/twitch';
 export * from './room/furniture/wall';
 export * from './room/furniture/youtube';
 export * from './room/mapping';
