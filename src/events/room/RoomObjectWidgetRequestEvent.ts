@@ -40,6 +40,7 @@ export class RoomObjectWidgetRequestEvent extends RoomObjectEvent
     public static INERNAL_LINK: string = 'ROWRE_INTERNAL_LINK';
     public static ROOM_LINK: string = 'ROWRE_ROOM_LINK';
     public static YOUTUBE: string = 'ROWRE_YOUTUBE';
+    public static TWITCH: string = 'ROWRE_TWITCH';
 
     constructor(type: string, roomObject: IRoomObject)
     {

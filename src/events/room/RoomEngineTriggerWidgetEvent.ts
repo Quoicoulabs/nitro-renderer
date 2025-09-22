@@ -36,6 +36,7 @@ export class RoomEngineTriggerWidgetEvent extends RoomEngineObjectEvent
     public static REQUEST_INTERNAL_LINK: string = 'RETWE_REQUEST_INTERNAL_LINK';
     public static REQUEST_ROOM_LINK: string = 'RETWE_REQUEST_ROOM_LINK';
     public static REQUEST_YOUTUBE: string = 'RETWE_REQUEST_YOUTUBE';
+    public static REQUEST_TWITCH: string = 'RETWE_REQUEST_TWITCH';
 
     private _widget: string;
 

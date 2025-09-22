@@ -336,6 +336,7 @@ export class OutgoingHeader
     public static GET_COMMUNITY_GOAL_PROGRESS = 1145;
     public static GET_CONCURRENT_USERS_GOAL_PROGRESS = 1343;
     public static GET_CONCURRENT_USERS_REWARD = 3872;
+    public static GET_TWITCH_DISPLAY_STATUS = 337;
     public static GET_DAILY_QUEST = 2486;
     public static GET_QUESTS = 3333;
     public static GET_SEASONAL_QUESTS_ONLY = 1190;
