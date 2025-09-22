@@ -45,6 +45,7 @@
     public static INTERNAL_LINK: string = 'RWE_INTERNAL_LINK';
     public static CUSTOM_STACK_HEIGHT: string = 'RWE_CUSTOM_STACK_HEIGHT';
     public static YOUTUBE: string = 'RWE_YOUTUBE';
+    public static TWITCH: string = 'RWE_TWITCH';
     public static RENTABLESPACE: string = 'RWE_RENTABLESPACE';
     public static VIMEO: string = 'RWE_VIMEO';
     public static ROOM_TOOLS: string = 'RWE_ROOM_TOOLS';

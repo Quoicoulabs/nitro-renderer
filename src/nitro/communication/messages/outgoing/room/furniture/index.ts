@@ -20,5 +20,6 @@ export * from './RentableSpaceCancelRentMessageComposer';
 export * from './RentableSpaceRentMessageComposer';
 export * from './RentableSpaceStatusMessageComposer';
 export * from './toner';
+export * from './twitch';
 export * from './wall';
 export * from './youtube';
