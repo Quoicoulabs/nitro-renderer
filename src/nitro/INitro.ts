@@ -1,5 +1,6 @@
 import { Application } from '@pixi/app';
 import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager } from '../api';
+import { PostProcessingManager } from '../pixi-proxy';
 
 export interface INitro
 {
@@ -24,6 +25,7 @@ export interface INitro
     roomManager: IRoomManager;
     cameraManager: IRoomCameraWidgetManager;
     soundManager: ISoundManager;
+    postProcessingManager: PostProcessingManager;
     width: number;
     height: number;
     isReady: boolean;

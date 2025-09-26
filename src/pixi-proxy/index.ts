@@ -1,6 +1,7 @@
 export { POINT_STRUCT_SIZE } from '@pixi/tilemap';
 export * from './adjustment-filter';
 export * from './CopyChannelFilter';
+export * from './FXAAFilter';
 export * from './GetTicker';
 export * from './GetTickerFPS';
 export * from './GetTickerTime';
@@ -20,5 +21,8 @@ export * from './NitroTilemap';
 export * from './PaletteMapFilter';
 export * from './PixiApplicationProxy';
 export * from './PixiInteractionEventProxy';
+export * from './PostProcessingManager';
 export * from './RoomTextureUtils';
+export * from './SharpenFilter';
 export * from './TextureUtils';
+export * from './ToneMappingFilter';

@@ -4,7 +4,7 @@ import { settings } from '@pixi/settings';
 import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, NitroConfiguration, NitroLogger } from '../api';
 import { ConfigurationEvent, EventDispatcher, NitroCore } from '../core';
 import { NitroEvent, RoomEngineEvent } from '../events';
-import { GetTicker, PixiApplicationProxy } from '../pixi-proxy';
+import { GetTicker, PixiApplicationProxy, PostProcessingManager } from '../pixi-proxy';
 import { RoomManager } from '../room';
 import { AvatarRenderManager } from './avatar';
 import { RoomCameraWidgetManager } from './camera';
@@ -21,9 +21,12 @@ import { HabboWebTools } from './utils/HabboWebTools';
 
 LegacyExternalInterface.available;
 
-settings.SCALE_MODE = (!(window.devicePixelRatio % 1)) ? SCALE_MODES.NEAREST : SCALE_MODES.LINEAR;
-settings.ROUND_PIXELS = true;
+// Enhanced rendering settings for better visual quality
+settings.SCALE_MODE = SCALE_MODES.LINEAR; // Force linear filtering for smoother visuals
+settings.ROUND_PIXELS = false; // Allow sub-pixel rendering for sharper text and objects
+settings.RESOLUTION = window.devicePixelRatio || 1; // Support high-DPI displays
 settings.GC_MAX_IDLE = 120;
+settings.PREFER_ENV = 'webgl2'; // Prefer WebGL2 for better performance and features
 
 export class Nitro implements INitro
 {
@@ -46,6 +49,7 @@ export class Nitro implements INitro
     private _cameraManager: IRoomCameraWidgetManager;
     private _soundManager: ISoundManager;
     private _linkTrackers: ILinkEventTracker[];
+    private _postProcessingManager: PostProcessingManager;
 
     private _isReady: boolean;
     private _isDisposed: boolean;
@@ -67,6 +71,7 @@ export class Nitro implements INitro
         this._cameraManager = new RoomCameraWidgetManager();
         this._soundManager = new SoundManager();
         this._linkTrackers = [];
+        this._postProcessingManager = null;
 
         this._isReady = false;
         this._isDisposed = false;
@@ -124,6 +129,9 @@ export class Nitro implements INitro
 
         new GameMessageHandler(this._communication.connection);
 
+        // Initialize post-processing after everything is ready
+        this.initializePostProcessing();
+
         this._isReady = true;
     }
 
@@ -171,6 +179,13 @@ export class Nitro implements INitro
             this._soundManager.dispose();
 
             this._soundManager = null;
+        }
+
+        if(this._postProcessingManager)
+        {
+            this._postProcessingManager.dispose();
+
+            this._postProcessingManager = null;
         }
 
         if(this._communication)
@@ -278,6 +293,27 @@ export class Nitro implements INitro
         HabboWebTools.sendHeartBeat();
     }
 
+    private initializePostProcessing(): void
+    {
+        if(!this._application || !this._application.stage) return;
+
+        // Initialize post-processing manager with the main stage
+        this._postProcessingManager = new PostProcessingManager(this._application, this._application.stage);
+
+        // Set default quality preset based on device capabilities
+        const devicePixelRatio = window.devicePixelRatio || 1;
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        if(isMobile || devicePixelRatio < 2)
+        {
+            this._postProcessingManager.enablePreset('performance');
+        }
+        else
+        {
+            this._postProcessingManager.enablePreset('quality');
+        }
+    }
+
     public get application(): Application
     {
         return this._application;
@@ -336,6 +372,11 @@ export class Nitro implements INitro
     public get soundManager(): ISoundManager
     {
         return this._soundManager;
+    }
+
+    public get postProcessingManager(): PostProcessingManager
+    {
+        return this._postProcessingManager;
     }
 
     public get width(): number
